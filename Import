@@ -1,0 +1,27 @@
+class ImportSQLConfig:
+    def __init__(self):
+        sql_config = ('./config/sqlconfig.cfg')
+
+        with open(sql_config) as file:
+            f = file.read()
+            f = f.split('\n')
+
+        self.dictionary = {}
+
+# wyszukiwanie po nazwie
+        for name in f:
+            name = name.split(';')
+            name = [x.strip() for x in name]
+            self.dictionary[name[0]] = name[1:4]
+
+    def get_value(self, key, info):
+        if info == 'i':
+            output = self.dictionary[key][2]
+        elif info == 'p':
+            output = self.dictionary[key][1]
+        elif info == 'l':
+            output = self.dictionary[key][0]
+        else:
+            output = -1
+
+        return output
